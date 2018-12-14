@@ -1,0 +1,90 @@
+#register {
+  width: 900px;
+  height: 836px;
+  margin: 20px auto;
+  background: #F2F2F2;
+}
+#register .register {
+  height: 605px;
+  width: 672px;
+  padding: 70px 112px 161px 115px;
+}
+#register .register .box1 {
+  border: 1px solid #E6E6E6;
+  height: 73px;
+  width: 667px;
+  margin-top: 23px;
+}
+#register .register .box1 input {
+  float: right;
+  font-size: 23px;
+  color: #000000;
+  display: block;
+  width: 595px;
+  height: 73px;
+  background: #fff;
+}
+#register .register .box1 input img {
+  float: left;
+}
+#register .register .box2 {
+  width: 667px;
+  height: 83px;
+  background: #F2F2F2;
+  margin-top: 10px;
+}
+#register .register .box2 .box_l {
+  border: 1px solid #E6E6E6;
+  margin-top: 10px;
+  width: 406px;
+  height: 73px;
+  float: left;
+}
+#register .register .box2 .box_l input {
+  font-size: 23px;
+  color: #000000;
+  display: inline-block;
+  width: 333px;
+  height: 73px;
+}
+#register .register #picCode {
+  width: 240px;
+  height: 84px;
+  float: right;
+  background: #fff;
+}
+#register .register #picCode span {
+  display: inline-block;
+  font-size: 26px;
+}
+#register .register .box3 {
+  width: 671px;
+  height: 33px;
+  color: #66667D;
+  font-size: 19px;
+  margin-top: 47px;
+}
+#register .register .box3 a {
+  display: block;
+  height: 20px;
+  width: 140px;
+  float: right;
+  color: #009688;
+}
+#register .register .box4 {
+  height: 74px;
+  width: 671px;
+  background: #009688;
+}
+#register .register .box4 a {
+  display: block;
+  height: 74px;
+  width: 671px;
+  background: #009688;
+  color: #fff;
+  font-size: 23px;
+  line-height: 74px;
+  text-align: center;
+}
+
+/*# sourceMappingURL=register.css.map */
