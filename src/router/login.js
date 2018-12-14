@@ -7,13 +7,10 @@ const bodyParser = require('body-parser');
 // 获取Mongo客户端
 const MongoClient = mongodb.MongoClient;
 
-// Router.get('/',(req,res)=>{
-//     res.send('user list')
-// });
 
 let urlencodedParser = bodyParser.urlencoded({extended:false});
 //登陆
-Router.post('/login',urlencodedParser,(req,res)=>{
+Router.post('/',urlencodedParser,(req,res)=>{
     let {username,password} = req.body;
     console.log(req.body);
     MongoClient.connect('mongodb://localhost:27017',(err, database)=>{
@@ -21,12 +18,13 @@ Router.post('/login',urlencodedParser,(req,res)=>{
         if(err) throw err;
 
         // 使用某个数据库，无则自动创建
-        let db = database.db('h5_1809');
+        let db = database.db('jianyiwang');
 
         // 使用集合
-        let user = db.collection('user');
+        let user = db.collection('user_inf');
 
         // 处理password为数字的情况
+        password = isNaN(password) ? password : password*1;
         console.log(password,username);
         //查询是否存在数据
         user.findOne({name:username,password},(err,result)=>{
