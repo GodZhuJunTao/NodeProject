@@ -17,25 +17,28 @@ Router.route('/')
             // 使用某个数据库，无则自动创建
             let db = database.db('jianyiwang');
 
-            let {page,qty} = req.query;
-            qty = qty*1;
-            let num = page*qty*1;
-            let jump = qty*(page-1)*1;
-            console.log(page,qty);
-            console.log(num,jump);
+            let {page,limit} = req.query;
+            limit = limit*1;
+            let num = page*limit*1;
+            let jump = limit*(page-1)*1;
+            // console.log(page,qty);
+            // console.log(num,jump);
             // 使用集合
             let shoppinglist = db.collection('shoppinglist');
-            shoppinglist.find({gid:{$lte:num}}).skip(jump).limit(qty).toArray((err,result)=>{
+            shoppinglist.find({gid:{$lte:num}}).skip(jump).limit(limit).toArray((err,result)=>{
                 // let str = result.toString;
                 console.log(result);
-                let data;
+                let code;
                 if(result){
-                    data = {
-                        data:result,
-                        status:1
+                    code = {
+                        data:{
+                            item:result
+                        },
+                        status:0
                     }
                 }
-                res.send(data);
+                console.log(code);
+                res.send(code);
             })
         })
     })

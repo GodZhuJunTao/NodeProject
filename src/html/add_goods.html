@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>user_list</title>
+    <title>add_goods</title>
     <link rel="stylesheet" href="../lib/layui/css/layui.css">
 </head>
 
@@ -17,7 +17,7 @@
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item"><a href="javascript:;">首页</a></li>
                 <li class="layui-nav-item"><a href="">商品管理</a></li>
-                <li class="layui-nav-item"><a href="">用户列表</a></li>
+                <li class="layui-nav-item"><a href="">添加商品</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">欢迎某某某进入后台管理系统</li>
@@ -29,7 +29,7 @@
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                    <li class="layui-nav-item">
+                    <li class="layui-nav-item layui-nav-itemed">
                         <a class="" href="javascript:;">商品管理</a>
                         <dl class="layui-nav-child">
                             <dd><a href="goods_list.html">商品列表</a></dd>
@@ -37,7 +37,7 @@
                             <dd><a href="add_goods.html">添加商品</a></dd>
                         </dl>
                     </li>
-                    <li class="layui-nav-item layui-nav-itemed">
+                    <li class="layui-nav-item">
                         <a href="javascript:;">用户管理</a>
                         <dl class="layui-nav-child">
                             <dd><a href="user_list.html">用户列表</a></dd>
@@ -54,8 +54,8 @@
 
         <div class="layui-body">
             <!-- 内容主体区域 -->
-
-            <h1>这是用户列表</h1>
+            <h1>这是添加商品</h1>
+            <table class="layui-hide" id="test" lay-filter="test"></table>
         </div>
     </div>
 
@@ -63,17 +63,29 @@
         <!-- 底部固定区域 -->
         © layui.com - 底部固定区域
     </div>
-    </div>
-    <script src="../lib/layui/layui.js"></script>
-    <script>
-        //JavaScript代码区域
-        layui.use('element', function () {
-            var element = layui.element;
-        });
-        let quit = document.querySelector('#quit');
-        quit.onclick = () => {
-            location.href = '../';
-        }
-    </script>
+</body>
+<script src="../lib/layui/layui.js"></script>
+
+                
+            
+<script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+    
+    
+    // let status = [200,304];
+    // let xhr = new XMLHttpRequest();
+    // let page = 1;
+    // xhr.onload = ()=>{
+    //     if(status.includes(xhr.status)){
+    //         let res = JSON.parse(xhr.responseText);
+    //         console.log(xhr.responseText);
+    //     }
+    // }
+    // xhr.open('get',`/goodslist?page=${page}&qty=10`,true);
+    // xhr.send();
+</script>
 
 </html>
