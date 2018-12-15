@@ -68,8 +68,8 @@
 <script src="../lib/layui/layui.js"></script>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-      <button class="layui-btn layui-btn-sm">添加</button>
-      <button class="layui-btn layui-btn-sm">删除</button>
+      <a class="layui-btn layui-btn-sm" href="add_goods.html">添加</a>
+      <a class="layui-btn layui-btn-sm">删除</a>
     </div>
   </script>
    
@@ -106,7 +106,7 @@
             }
             ,cols: [[
             {type: 'checkbox', fixed: 'left'}
-            ,{field:'gid', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
+            ,{field:'_id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
             ,{field:'shoppingname', width:120, title: '商品名称'}
             ,{field:'sort', width:80, title: '分类'}
             ,{field:'oldprice', width:120, title: '价格(原价)', sort: true}
@@ -149,7 +149,7 @@
                 layer.confirm('真的删除行么', function(index){
                     obj.del();
                     layer.close(index);
-                    let id = obj.data.gid;
+                    let id = obj.data._id;
                     let status = [200,304];
                     let xhr = new XMLHttpRequest();
                     let page = 1;
@@ -159,7 +159,7 @@
                             console.log(xhr.responseText);
                         }
                     }
-                    xhr.open('delete',`/goodslist?gid=${id}`,true);
+                    xhr.open('delete',`/goodslist?id=${id}`,true);
                     xhr.send();
                 });
             } else if(obj.event === 'edit'){
@@ -168,7 +168,11 @@
             }
         });
     });
-    
+    // let edit = document.querySelector('#toolbarDemo');
+    // console.log(edit);
+    // edit.onclick = ()=>{
+    //     console.log(123);
+    // }
     // let status = [200,304];
     // let xhr = new XMLHttpRequest();
     // let page = 1;
