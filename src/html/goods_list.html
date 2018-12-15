@@ -74,7 +74,7 @@
   </script>
    
   <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
   </script>
                 
@@ -117,28 +117,12 @@
             ]]
             ,page: true
         });
-        var $ = layui.$, active = {
-            reload: function(){
-            var demoReload = $('#demoReload');
-            
-            //执行重载
-            table.reload('testReload', {
-                page: {
-                curr: 1 //重新从第 1 页开始
-                }
-                ,where: {
-                key: {
-                    id: demoReload.val()
-                }
-                }
-            });
-            }
-        };
+       
         
-        $('.demoTable .layui-btn').on('click', function(){
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
+        // $('.demoTable .layui-btn').on('click', function(){
+        //     var type = $(this).data('type');
+        //     active[type] ? active[type].call(this) : '';
+        // });
         //头工具栏事件
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
@@ -165,17 +149,22 @@
                 layer.confirm('真的删除行么', function(index){
                     obj.del();
                     layer.close(index);
+                    let id = obj.data.gid;
+                    let status = [200,304];
+                    let xhr = new XMLHttpRequest();
+                    let page = 1;
+                    xhr.onload = ()=>{
+                        if(status.includes(xhr.status)){
+                            let res = JSON.parse(xhr.responseText);
+                            console.log(xhr.responseText);
+                        }
+                    }
+                    xhr.open('delete',`/goodslist?gid=${id}`,true);
+                    xhr.send();
                 });
             } else if(obj.event === 'edit'){
-                layer.prompt({
-                    formType: 2
-                    ,value: data.email
-                }, function(value, index){
-                    obj.update({
-                    email: value
-                    });
-                    layer.close(index);
-                });
+                let id = obj.data.gid;
+                location.href = 'shopp_editor.html?id='+id;
             }
         });
     });
