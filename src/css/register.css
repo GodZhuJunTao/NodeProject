@@ -24,6 +24,9 @@
   height: 73px;
   background: #fff;
 }
+#picCode span{
+  font-style: italic;
+}
 #register .register .box1 input img {
   float: left;
 }

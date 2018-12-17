@@ -54,7 +54,7 @@
 
         <div class="layui-body">
             <!-- 内容主体区域 -->
-            <div style="padding:20px;width: 1160px;height:540px;border:20px solid #ccd;">
+            <div style="padding:20px;width: 1160px;border:20px solid #ccd;">
                 <table class="layui-hide" id="test" lay-filter="test"></table>
             </div>
         </div>
@@ -62,7 +62,7 @@
 
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
+        
     </div>
 </body>
 <script src="../lib/layui/layui.js"></script>
@@ -106,11 +106,11 @@
             }
             ,cols: [[
             {type: 'checkbox', fixed: 'left'}
-            ,{field:'_id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
+            ,{field:'_id', title:'ID', width:120, fixed: 'left', unresize: true, sort: true}
             ,{field:'shoppingname', width:120, title: '商品名称'}
-            ,{field:'sort', width:80, title: '分类'}
+            ,{field:'sort', width:120, title: '分类'}
             ,{field:'oldprice', width:120, title: '价格(原价)', sort: true}
-            ,{field:'price', title: '价格(现价)', Width: 80}
+            ,{field:'price', title: '价格(现价)', Width: 80 ,sort: true}
             ,{field:'store', width:80, title: '库存', sort: true}
             ,{field:'time', width:120, title: '添加时间', sort: true}
             ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
@@ -163,7 +163,7 @@
                     xhr.send();
                 });
             } else if(obj.event === 'edit'){
-                let id = obj.data.gid;
+                let id = obj.data._id;
                 location.href = 'shopp_editor.html?id='+id;
             }
         });
