@@ -2,59 +2,56 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>add_goods</title>
-    <link rel="stylesheet" href="../lib/layui/css/layui.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>add_goods</title>
+  <link rel="stylesheet" href="../lib/layui/css/layui.css">
 </head>
 
 <body class="layui-layout-body">
-    <div class="layui-layout layui-layout-admin">
-        <div class="layui-header">
-            <div class="layui-logo">后台管理系统</div>
-            <!-- 头部区域（可配合layui已有的水平导航） -->
-            <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item"><a href="javascript:;">首页</a></li>
-                <li class="layui-nav-item"><a href="">商品管理</a></li>
-                <li class="layui-nav-item"><a href="">添加商品</a></li>
-            </ul>
-            <ul class="layui-nav layui-layout-right">
-                <li class="layui-nav-item">欢迎某某某进入后台管理系统</li>
-                <li class="layui-nav-item"><a href="javascript:;" id="quit">退了</a></li>
-            </ul>
-        </div>
+  <div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+      <div class="layui-logo">后台管理系统</div>
+      <!-- 头部区域（可配合layui已有的水平导航） -->
+      <ul class="layui-nav layui-layout-left">
+        <li class="layui-nav-item"><a href="javascript:;">首页</a></li>
+        <li class="layui-nav-item"><a href="">商品管理</a></li>
+        <li class="layui-nav-item"><a href="">添加商品</a></li>
+      </ul>
+      <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item">欢迎某某某进入后台管理系统</li>
+        <li class="layui-nav-item"><a href="javascript:;" id="quit">退了</a></li>
+      </ul>
+    </div>
 
-        <div class="layui-side layui-bg-black">
-            <div class="layui-side-scroll">
-                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;">商品管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="goods_list.html">商品列表</a></dd>
-                            <dd><a href="goods_category.html">商品分类</a></dd>
-                            <dd><a href="add_goods.html">添加商品</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;">用户管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="user_list.html">用户列表</a></dd>
-                            <dd><a href="add_user.html">添加用户</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;">订单管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="order_list.html">订单列表</a></dd>
-                        </dl>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div class="layui-side layui-bg-black">
+      <div class="layui-side-scroll">
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree" lay-filter="test">
+          <li class="layui-nav-item layui-nav-itemed">
+            <a class="" href="javascript:;">商品管理</a>
+            <dl class="layui-nav-child">
+              <dd><a href="goods_list.html">商品列表</a></dd>
+              <dd><a href="goods_category.html">商品分类</a></dd>
+              <dd><a href="add_goods.html">添加商品</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">用户管理</a>
+            <dl class="layui-nav-child">
+              <dd><a href="user_list.html">用户列表</a></dd>
+              <dd><a href="add_user.html">添加用户</a></dd>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">订单管理</a>
+            <dl class="layui-nav-child">
+              <dd><a href="order_list.html">订单列表</a></dd>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-<<<<<<< HEAD
     <div class="layui-body">
       <!-- 内容主体区域 -->
       <div style="padding:20px;width: 1160px;border:20px solid #ccd;">
@@ -135,155 +132,73 @@
               <input type="checkbox" name="yyy" lay-skin="switch" lay-text="ON|OFF" checked>
             </div>
           </div>
-=======
-        <div class="layui-body">
-            <!-- 内容主体区域 -->
-            <div style="padding:20px;width: 1160px;border:20px solid #ccd;">
 
-                <form class="layui-form" action="">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">商品名称</label>
-                        <div class="layui-input-inline" style="width: 600px;">
-                            <input type="" required lay-verify="required" class="layui-input" style="width: 600px;" id="shoppingname">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">50字以内</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">商品副标题</label>
-                        <div class="layui-input-inline" style="width: 600px;">
-                            <input type="" required lay-verify="required" class="layui-input" style="width: 600px;">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">100字以内</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">商品价格</label>
-                        <div class="layui-input-inline" style="width: 200px;">
-                            <input type="" required lay-verify="required" class="layui-input" style="width: 200px;" id="oldprice">
-                        </div>
-                        <label class="layui-form-label">销售价格</label>
-                        <div class="layui-input-inline" style="width: 200px;">
-                            <input type="" required lay-verify="required" class="layui-input" style="width: 200px;" id="price">
-                        </div>
-                    </div>
-                    <div style="height:140px;margin-left:39px;margin-bottom:40px;">
-                        <span>商品图片</span>
-                        <ul style="margin-left:73px;">
-                            <li style="float:left;width:112px;margin-right:90px;">
-                                <img src="../assets/tu.png" alt="">
-                                <label><input name="Fruit" type="radio" value="" />设为封面 </label>
-                            </li>
-                            <li style="float:left;width:112px;margin-right:90px;">
-                                <img src="../assets/tu.png" alt="">
-                                <label><input name="Fruit" type="radio" value="" />设为封面 </label>
-                            </li>
-                            <li style="float:left;width:112px;margin-right:90px;">
-                                <img src="../assets/tu.png" alt="">
-                                <label><input name="Fruit" type="radio" value="" />设为封面 </label>
-                            </li>
-                        </ul>
-                        <div style="float:left"><img src="../assets/tian.png" alt=""></div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">库存</label>
-                        <div class="layui-input-inline" style="width: 200px;">
-                            <input type="" required lay-verify="required" class="layui-input" style="width: 200px;" id="store">
-                        </div>
-                    </div>
-                    <div class="layui-form-item" style="width: 510px;">
-                        <label class="layui-form-label">商品分类</label>
-                        <div class="layui-input-block">
-                            <select name="city" lay-verify="required" id="sort">
-                                <option value=""></option>
-                                <option value="吹风机">吹风机</option>
-                                <option value="保健品">保健品</option>
-                                <option value="零食">零食</option>
-                                <option value="隐形眼镜">隐形眼镜</option>
-                                <option value="手机">手机</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">商品属性</label>
-                        <div class="layui-input-block">
-                            <input type="checkbox" name="like[write]" title="热卖">
-                            <input type="checkbox" name="like[read]" title="推荐" checked>
-                            <input type="checkbox" name="like[dai]" title="促销">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">上架</label>
-                        <div class="layui-input-block">
-                            <input type="checkbox" name="yyy" lay-skin="switch" lay-text="ON|OFF" checked>
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">备注</label>
-                        <div class="layui-input-block">
-                            <textarea name="desc" placeholder="请输入内容" class="layui-textarea" style="width:400px;height:100px;"></textarea>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit lay-filter="formDemo" id="isok">确认</button>
-                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                        </div>
-                    </div>
-                </form>
-                <table class="layui-hide" id="test" lay-filter="test"></table>
->>>>>>> zhujuntao
-
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+              <textarea name="desc" placeholder="请输入内容" class="layui-textarea" style="width:400px;height:100px;"></textarea>
             </div>
-        </div>
+          </div>
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button class="layui-btn" lay-submit lay-filter="formDemo" id="isok">确认</button>
+              <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+          </div>
+        </form>
+        <table class="layui-hide" id="test" lay-filter="test"></table>
 
-        <div class="layui-footer">
-            <!-- 底部固定区域 -->
+      </div>
+    </div>
 
-        </div>
+    <div class="layui-footer">
+      <!-- 底部固定区域 -->
+      
+    </div>
 </body>
 <script src="../lib/layui/layui.js"></script>
 
 
 
 <script>
-    //JavaScript代码区域
-    layui.use('element', function () {
-        var element = layui.element;
-    });
+  //JavaScript代码区域
+  layui.use('element', function () {
+    var element = layui.element;
+  });
 
-    let shoppingname = document.querySelector('#shoppingname');
-    let oldprice = document.querySelector('#oldprice');
-    let price = document.querySelector('#price');
-    let store = document.querySelector('#store');
-    let sort = document.querySelector('#sort');
-    let isok = document.querySelector('#isok');
-    isok.onclick = () => {
-        let _sort = sort.value;
-        let _shoppingname = shoppingname.value;
-        let _price = price.value;
-        let _oldprice = oldprice.value;
-        let _store = store.value;
-        console.log(_sort, _shoppingname, _price, _oldprice, _store);
-        let status = [200, 304];
-        let xhr = new XMLHttpRequest();
-        xhr.onload = () => {
-            if (status.includes(xhr.status)) {
-                let res = JSON.parse(xhr.responseText);
-                console.log(xhr.responseText);
-            }
+  let shoppingname = document.querySelector('#shoppingname');
+  let oldprice = document.querySelector('#oldprice');
+  let price = document.querySelector('#price');
+  let store = document.querySelector('#store');
+  let sort = document.querySelector('#sort');
+  let isok = document.querySelector('#isok');
+  isok.onclick = ()=>{
+    let _sort = sort.value;
+    let _shoppingname = shoppingname.value;
+    let _price = price.value;
+    let _oldprice = oldprice.value;
+    let _store = store.value;
+    console.log(_sort,_shoppingname,_price,_oldprice,_store);
+    let status = [200,304];
+    let xhr = new XMLHttpRequest();
+    xhr.onload = ()=>{
+        if(status.includes(xhr.status)){
+            let res = JSON.parse(xhr.responseText);
+            console.log(xhr.responseText);
         }
-        xhr.open('put', `/goodslist?sort=${_sort}&shoppingname=${_shoppingname}&price=${_price}&oldprice=${_oldprice}&store=${_store}`, true);
-        xhr.send();
     }
-    layui.use('form', function () {
-        var form = layui.form;
+    xhr.open('put',`/goodslist?sort=${_sort}&shoppingname=${_shoppingname}&price=${_price}&oldprice=${_oldprice}&store=${_store}`,true);
+    xhr.send();
+  }
+  layui.use('form', function () {
+    var form = layui.form;
 
-        //监听提交
-        form.on('submit(formDemo)', function (data) {
-            layer.msg(JSON.stringify(data.field));
-            return false;
-        });
+    //监听提交
+    form.on('submit(formDemo)', function (data) {
+      layer.msg(JSON.stringify(data.field));
+      return false;
     });
+  });
 </script>
 
 </html>

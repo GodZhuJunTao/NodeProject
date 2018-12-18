@@ -24,10 +24,10 @@ Router.post('/',urlencodedParser,(req,res)=>{
         let user = db.collection('user_inf');
 
         // 处理password为数字的情况
-        password = isNaN(password) ? password : password*1;
+        // password = isNaN(password) ? password : password*1;
         console.log(password,username);
         //查询是否存在数据
-        user.findOne({name:username,password},(err,result)=>{
+        user.findOne({user:username,password},(err,result)=>{
             console.log(result);
             if(result){
                 // 登录成功后,给前端发送用户表示 ：token

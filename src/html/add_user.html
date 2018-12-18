@@ -57,87 +57,46 @@
             <div style="padding:20px;width: 1160px;height:540px;border:20px solid #ccd;">
                 <form class="layui-form" action="">
                     <div class="layui-form-item">
-<<<<<<< HEAD
-                      <label class="layui-form-label">用户名</label>
-                      <div class="layui-input-block">
-                        <input type="text" name="title" required  lay-verify="required|username" placeholder="请输入标题" autocomplete="off" class="layui-input">
-                      </div>
-=======
                         <label class="layui-form-label">用户名</label>
                         <div class="layui-input-block">
                             <input type="text" name="title" required lay-verify="required|username" placeholder="请输入用户名"
                                 autocomplete="off" class="layui-input" id="user" style="width:190px;">
                         </div>
->>>>>>> zhujuntao
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">年龄</label>
                         <div class="layui-input-block">
-<<<<<<< HEAD
-                          <input type="text" name="title" required  lay-verify="required|username" placeholder="请输入" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                    
-                    <div class="layui-form-item">
-                      <label class="layui-form-label">密码框</label>
-                      <div class="layui-input-inline">
-                        <input type="password" name="password" required lay-verify="required|pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
-                      </div>
-                      <div class="layui-form-mid layui-word-aux">请输入6到12位</div>
-=======
                             <input type="text" name="title" required lay-verify="required|username" placeholder="请输入年龄"
                                 autocomplete="off" class="layui-input" id="age" style="width:190px;">
                         </div>
->>>>>>> zhujuntao
                     </div>
 
                     <div class="layui-form-item">
                         <label class="layui-form-label">密码框</label>
                         <div class="layui-input-inline">
-<<<<<<< HEAD
-                          <input type="password" name="password" required lay-verify="required|pass" placeholder="" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">验证日期</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="date" id="date" lay-verify="required|date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
-                    </div>
-                    <div class="layui-form-item">
-                      <label class="layui-form-label">单选框</label>
-                      <div class="layui-input-block">
-                        <input type="radio" name="sex" value="男" title="男">
-                        <input type="radio" name="sex" value="女" title="女" checked>
-                      </div>
-=======
                             <input type="password" name="password" required lay-verify="required|pass" placeholder="请输入密码"
                                 autocomplete="off" class="layui-input" id="password">
                         </div>
                         <div class="layui-form-mid layui-word-aux">请输入6到12位</div>
->>>>>>> zhujuntao
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">确认密码</label>
                         <div class="layui-input-inline">
                             <input type="password" name="password" required lay-verify="required|pass" placeholder="请再次输入密码"
-                                autocomplete="off" class="layui-input">
+                                autocomplete="off" class="layui-input" id="password">
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">出生日期</label>
+                        <label class="layui-form-label">生日</label>
                         <div class="layui-input-inline">
-<<<<<<< HEAD
-                          <input type="text" name="email" lay-verify="required|email" autocomplete="off" class="layui-input">
-=======
                             <input type="text" name="date" lay-verify="required|date" placeholder="yyyy/MM/dd"
                                 autocomplete="off" class="layui-input" id="time">
->>>>>>> zhujuntao
                         </div>
                         <div class="layui-form-item" style="margin-top:15px;">
                             <label class="layui-form-label">性别</label>
                             <div class="layui-input-block" id="sex">
                                 <input type="radio" name="sex" value="男" title="男">
-                                <input type="radio" name="sex" value="女" title="女" checked>
+                                <input type="radio" name="sex" value="女" title="女">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -207,6 +166,11 @@
         let _tel = tel.value;
         let _email = email.value;
         let _sdads = sdads.value;
+        for(var i=0;i<sex.length;i++){
+            if(sex[i].checked){
+                _sex = sex[i].value;
+            }
+        }
         console.log(_user,_age,_password,_time,_sex,_tel,_email,_sdads);
         let status = [200,304];
         let xhr = new XMLHttpRequest();
@@ -220,8 +184,6 @@
         xhr.open('put',`/userinf?user=${_user}&age=${_age}&password=${_password}&time=${_time}&sex=${_sex}&tel=${_tel}&email=${_email}&sdads=${_sdads}`,true);
         xhr.send();
     }
-    
-<<<<<<< HEAD
     // let status = [200,304];
     // let xhr = new XMLHttpRequest();
     // let page = 1;
@@ -233,39 +195,6 @@
     // }
     // xhr.open('get',`/goodslist?page=${page}&qty=10`,true);
     // xhr.send();
- 
-//Demo
-layui.use('form', function(){
-  var form = layui.form;
-  
-  //监听提交
-  form.on('submit(formDemo)', function(data){
-    layer.msg(JSON.stringify(data.field));
-    return false;
-  });
-
-  form.verify({
-  username: function(value, item){ //value：表单的值、item：表单的DOM对象
-    if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
-      return '用户名不能有特殊字符';
-    }
-    if(/(^\_)|(\__)|(\_+$)/.test(value)){
-      return '用户名首尾不能出现下划线\'_\'';
-    }
-    if(/^\d+\d+\d$/.test(value)){
-      return '用户名不能全为数字';
-    }
-  }
-  
-  //我们既支持上述函数式的方式，也支持下述数组的形式
-  //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
-  ,pass: [
-    /^[\S]{6,12}$/
-    ,'密码必须6到12位，且不能出现空格'
-  ] 
-});   
-});
-=======
 
     //Demo
     layui.use('form', function () {
@@ -298,7 +227,6 @@ layui.use('form', function(){
             ]
         });
     });
->>>>>>> zhujuntao
 
 </script>
 

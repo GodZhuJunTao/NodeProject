@@ -168,6 +168,11 @@
             oldprice.value = res.data.item[0].oldprice;
             price.value = res.data.item[0].price;
             store.value = res.data.item[0].store;
+            sort.value = res.data.item[0].sort;
+            layui.use('form', function () {
+                var form = layui.form;
+                form.render('select');
+            })
             remark.value = res.data.item[0].remark;
         }
     }
