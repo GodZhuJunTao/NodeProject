@@ -14,7 +14,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4",
-    "mongodb": "^3.1.10"
+  "express": "^4.16.4",
+  "mongodb": "^3.1.10",
+  "supervisor": "^0.12.0"
   }
 }
