@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>add_user</title>
+    <title>user_editor</title>
     <link rel="stylesheet" href="../lib/layui/css/layui.css">
 </head>
 
@@ -79,15 +79,8 @@
                         </div>
                         <div class="layui-form-mid layui-word-aux">请输入6到12位</div>
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">确认密码</label>
-                        <div class="layui-input-inline">
-                            <input type="password" name="password" required lay-verify="required|pass" placeholder="请再次输入密码"
-                                autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">出生日期</label>
+                        <label class="layui-form-label">生日</label>
                         <div class="layui-input-inline">
                             <input type="text" name="date" lay-verify="required|date" placeholder="yyyy/MM/dd"
                                 autocomplete="off" class="layui-input" id="time">
@@ -96,7 +89,7 @@
                             <label class="layui-form-label">性别</label>
                             <div class="layui-input-block" id="sex">
                                 <input type="radio" name="sex" value="男" title="男">
-                                <input type="radio" name="sex" value="女" title="女" checked>
+                                <input type="radio" name="sex" value="女" title="女">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -135,6 +128,7 @@
         <!-- 底部固定区域 -->
     </div>
 </body>
+<!-- <script src="../lib/jquery-1.10.1.min.js"></script> -->
 <script src="../lib/layui/layui.js"></script>
 
 
@@ -143,13 +137,13 @@
     layui.use('element', function () {
         var element = layui.element;
     });
-    let sex = document.querySelectorAll('#sex input');
+    // for(var i=0;i<sex.length;i++){
+        //     if(sex[i].checked){
+            //         _sex = sex[i].value;
+            //     }
+            // }
     let _sex;
-    for(var i=0;i<sex.length;i++){
-        if(sex[i].checked){
-            _sex = sex[i].value;
-        }
-    }
+    let sex = document.querySelectorAll('#sex input');
     let user = document.querySelector('#user');
     let age = document.querySelector('#age');
     let password = document.querySelector('#password');
@@ -158,6 +152,34 @@
     let email = document.querySelector('#email');
     let sdads = document.querySelector('#sdads');
     let isok = document.querySelector('#isok');
+    let id = (location.search).split('=')[1];
+    let status = [200,304];
+    let xhr = new XMLHttpRequest();
+    xhr.onload = ()=>{
+        if (status.includes(xhr.status)) {
+            let res = JSON.parse(xhr.responseText);
+            console.log(res.data.item[0]);
+            user.value = res.data.item[0].user;
+            age.value = res.data.item[0].age;
+            password.value = res.data.item[0].password;
+            time.value = res.data.item[0].time;
+            email.value = res.data.item[0].email;
+            sdads.value = res.data.item[0].sdads;
+            tel.value = res.data.item[0].tel;
+            for(var i=0;i<sex.length;i++){
+                if(res.data.item[0].sex == sex[i].value){
+                    sex[i].checked = true;
+                    layui.use('form', function () {
+                        var form = layui.form;
+                        form.render('radio');
+                    })
+                }
+            }
+        }
+    }
+    xhr.open('get', `/userinf/editor?id=${id}`, true);
+    xhr.send();
+    
     isok.onclick = ()=>{
         let _user = user.value;
         let _age = age.value;
@@ -166,7 +188,12 @@
         let _tel = tel.value;
         let _email = email.value;
         let _sdads = sdads.value;
-        console.log(_user,_age,_password,_time,_sex,_tel,_email,_sdads);
+        for(var i=0;i<sex.length;i++){
+            if(sex[i].checked){
+                _sex = sex[i].value;
+            }
+        }
+        console.log(id,_user,_age,_password,_time,_sex,_tel,_email,_sdads);
         let status = [200,304];
         let xhr = new XMLHttpRequest();
         let page = 1;
@@ -176,15 +203,16 @@
                 console.log(xhr.responseText);
             }
         }
-        xhr.open('put',`/userinf?user=${_user}&age=${_age}&password=${_password}&time=${_time}&sex=${_sex}&tel=${_tel}&email=${_email}&sdads=${_sdads}`,true);
-        xhr.send();
+        xhr.open('post','/userinf',true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(`id=${id}&user=${_user}&age=${_age}&password=${_password}&time=${_time}&sex=${_sex}&tel=${_tel}&email=${_email}&sdads=${_sdads}`);
     }
     
 
     //Demo
     layui.use('form', function () {
         var form = layui.form;
-
+        
         //监听提交
         form.on('submit(formDemo)', function (data) {
             layer.msg(JSON.stringify(data.field));

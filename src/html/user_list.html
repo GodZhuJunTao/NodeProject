@@ -62,7 +62,7 @@
 
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-     
+
     </div>
     </div>
     <script src="../lib/layui/layui.js"></script>
@@ -78,79 +78,91 @@
     </script>
     <script type="text/html" id="toolbarDemo">
         <div class="layui-btn-container">
-          <button class="layui-btn layui-btn-sm">添加</button>
-          <button class="layui-btn layui-btn-sm">删除</button>
+            <a class="layui-btn layui-btn-sm" href="add_user.html">添加</a>
+            <a class="layui-btn layui-btn-sm">删除</a>
         </div>
       </script>
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
       </script>
- <script>
-    layui.use('table', function(){
-      var table = layui.table;
-      
-      table.render({
-        elem: '#test'
-        ,url:'/user.js'
-        ,toolbar: '#toolbarDemo'
-        ,title: '用户数据表'
-        ,cols: [[
-          {type: 'checkbox', fixed: 'left'}
-          ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
-          ,{field:'username', title:'用户名', width:120, edit: 'text'}
-          ,{field:'sex', title:'性别', width:120, edit: 'text', sort: true}
-                  ,{field:'email', title:'城市', width:150, edit: 'text', templet: function(res){
-                    return '<em>'+ res.email +'</em>'
-                  }}
-          ,{field:'city', title:'签名', width:120}
-          ,{field:'sign', title:'职业'}
-          ,{field:'experience', title:'评分', width:80, sort: true}
-          ,{field:'logins', title:'注册时间', width:100, sort: true}
-          ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
-        ]]
-        ,page: true
-      });
-      
-      //头工具栏事件
-      table.on('toolbar(test)', function(obj){
-        var checkStatus = table.checkStatus(obj.config.id);
-        switch(obj.event){
-          case 'getCheckData':
-            var data = checkStatus.data;
-            layer.alert(JSON.stringify(data));
-          break;
-          case 'getCheckLength':
-            var data = checkStatus.data;
-            layer.msg('选中了：'+ data.length + ' 个');
-          break;
-          case 'isAll':
-            layer.msg(checkStatus.isAll ? '全选': '未全选');
-          break;
-        };
-      });
-      
-      //监听行工具事件
-      table.on('tool(test)', function(obj){
-        var data = obj.data;
-        //console.log(obj)
-        if(obj.event === 'del'){
-          layer.confirm('真的删除行么', function(index){
-            obj.del();
-            layer.close(index);
-          });
-        } else if(obj.event === 'edit'){
-          layer.prompt({
-            formType: 2
-            ,value: data.email
-          }, function(value, index){
-            obj.update({
-              email: value
+    <script>
+        layui.use('table', function () {
+            var table = layui.table;
+
+            table.render({
+                elem: '#test'
+                , url: '/userinf'
+                , toolbar: '#toolbarDemo'
+                , title: '用户数据表'
+                , parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": res.status, //解析接口状态
+                        // "msg": res.message, //解析提示文本
+                        // "count": res.total, //解析数据长度
+                        "data": res.data.item //解析数据列表
+                    };
+                }
+                , cols: [[
+                    { type: 'checkbox', fixed: 'left' }
+                    , { field: '_id', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true }
+                    , { field: 'user', title: '用户名', width: 90, edit: 'text' }
+                    , { field: 'sex', title: '性别', width: 60, edit: 'text' }
+                    , { field: 'age', title: '年龄', width: 80, edit: 'text', sort: true }
+                    , { field: 'tel', title: '手机号', width: 150 }
+                    , { field: 'email', title: '邮箱', width: 190 }
+                    , { field: 'sdads', title: '个性签名', width: 150 }
+                    , { field: 'time', title: '注册时间', width: 150, sort: true }
+                    , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150 }
+                ]]
+                , page: true
             });
-            layer.close(index);
-          });
-        }
-      });
-    });
+
+            //头工具栏事件
+            table.on('toolbar(test)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id);
+                switch (obj.event) {
+                    case 'getCheckData':
+                        var data = checkStatus.data;
+                        layer.alert(JSON.stringify(data));
+                        break;
+                    case 'getCheckLength':
+                        var data = checkStatus.data;
+                        layer.msg('选中了：' + data.length + ' 个');
+                        break;
+                    case 'isAll':
+                        layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                        break;
+                };
+            });
+
+            //监听行工具事件
+            table.on('tool(test)', function (obj) {
+                var data = obj.data;
+                //console.log(obj)
+                if (obj.event === 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        obj.del();
+                        layer.close(index);
+                        let id = obj.data._id;
+                        let status = [200,304];
+                        let xhr = new XMLHttpRequest();
+                        let page = 1;
+                        xhr.onload = ()=>{
+                            if(status.includes(xhr.status)){
+                                let res = JSON.parse(xhr.responseText);
+                                console.log(xhr.responseText);
+                            }
+                        }
+                        xhr.open('delete',`/userinf?id=${id}`,true);
+                        xhr.send();
+                    });
+                } else if (obj.event === 'edit') {
+                    let id = obj.data._id;
+                    location.href = 'user_editor.html?id='+id;
+                }
+            });
+        });
     </script>
+
 </html>

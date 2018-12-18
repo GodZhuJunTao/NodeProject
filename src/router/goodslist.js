@@ -1,7 +1,6 @@
 // 利用Express中的Router实现路由模块化
 const express = require('express');
 let Router = express.Router();
-const mongodb = require('mongodb');
 let objectId = require('mongodb').ObjectId;
 let newtime = require('./newTime');
 const bodyParser = require('body-parser');
@@ -106,6 +105,96 @@ Router.get('/editor',async(req,res)=>{
     let data
     try{
         data = await db.find('shoppinglist',whereArgs,limit);
+    }catch(err){
+        data = err;
+    }
+
+    res.send(data);
+})
+// 分类列表 的增删改查
+Router.route('/category')
+    // 查
+    .get(async (req,res)=>{
+        let {page,limit} = req.query;
+        limit = limit*1;
+        let data
+        try{
+            data = await db.find('goods_category',{},limit);
+        }catch(err){
+            data = err;
+        }
+
+        res.send(data);
+    })
+    // 删
+    .delete(urlencodedParser,async(req,res)=>{
+        let {id} = req.query;
+        // console.log(id);
+        var _id = objectId(id);
+        var whereArgs = {
+            _id: _id
+        };
+        let data
+        try{
+            data = await db.delete('goods_category',whereArgs);
+        }catch(err){
+            data = err;
+        }
+
+        res.send(data);
+    })
+
+    // 增
+    .put(urlencodedParser,async (req,res)=>{
+        let {name,remark} = req.query;
+        console.log(name,remark,newtime());
+        let data;
+        try{
+            data = await db.insert('goods_category',{
+                name:name,
+                remark:remark,
+                time:newtime()
+            });
+        }catch(err){
+            data = err;
+        }
+
+        res.send(data);
+    })
+    // 改
+    .post(urlencodedParser,async (req,res)=>{
+        let {id,name,remark} = req.body;
+        var _id = objectId(id);
+        var whereArgs = {
+            _id: _id
+        };
+        console.log(name,remark,newtime());
+        let data;
+        try{
+            data = await db.update('goods_category',whereArgs,{$set:{
+                name:name,
+                remark:remark,
+                time:newtime()
+            }});
+        }catch(err){
+            data = err;
+        }
+
+        res.send(data);
+    })
+// 分类的 改,先渲染
+Router.get('/cg_editor',async(req,res)=>{
+    let {id} = req.query;
+    let limit = 1;
+    console.log(id);
+    console.log(123);
+    var _id = objectId(id);
+    var whereArgs = {
+        _id: _id
+    };
+    let data
+    try{
+        data = await db.find('goods_category',whereArgs,limit);
     }catch(err){
         data = err;
     }
