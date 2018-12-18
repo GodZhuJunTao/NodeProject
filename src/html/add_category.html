@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>add_category</title>
+    <link rel="stylesheet" href="../lib/layui/css/layui.css">
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">后台管理系统</div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="javascript:;">首页</a></li>
+                <li class="layui-nav-item"><a href="">商品管理</a></li>
+                <li class="layui-nav-item"><a href="">分类添加</a></li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">欢迎某某某进入后台管理系统</li>
+                <li class="layui-nav-item"><a href="javascript:;" id="quit">退了</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">商品管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="goods_list.html">商品列表</a></dd>
+                            <dd><a href="goods_category.html">商品分类</a></dd>
+                            <dd><a href="add_goods.html">添加商品</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">用户管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="user_list.html">用户列表</a></dd>
+                            <dd><a href="add_user.html">添加用户</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">订单管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="order_list.html">订单列表</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div style="padding:20px;width: 1160px;height:540px;border:20px solid #ccd;">
+
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">分类名称</label>
+                        <div class="layui-input-inline" style="width: 400px;">
+                            <input type="" required lay-verify="required" class="layui-input" style="width: 400px;" id="name">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">50字以内</div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">备注</label>
+                        <div class="layui-input-block">
+                            <textarea name="desc" placeholder="请输入内容" id="remark" class="layui-textarea" style="width:400px;height:150px;"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo" id="isok">确认</button>
+                        </div>
+                    </div>
+                </form>
+                <table class="layui-hide" id="test" lay-filter="test"></table>
+
+            </div>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+
+        </div>
+</body>
+<script src="../lib/layui/layui.js"></script>
+
+
+
+<script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+
+    let name = document.querySelector('#name');
+    let remark = document.querySelector('#remark');
+    let isok = document.querySelector('#isok');
+    isok.onclick = () => {
+        let _name = name.value;
+        let _remark = remark.value;
+        console.log(_name,_remark);
+        let status = [200, 304];
+        let xhr = new XMLHttpRequest();
+        xhr.onload = () => {
+            if (status.includes(xhr.status)) {
+                let res = JSON.parse(xhr.responseText);
+                console.log(xhr.responseText);
+            }
+        }
+        xhr.open('put', `/goodslist/category?name=${_name}&remark=${_remark}`, true);
+        xhr.send();
+    }
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+</script>
+
+</html>
