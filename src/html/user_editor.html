@@ -171,6 +171,7 @@
                     sex[i].checked = true;
                     layui.use('form', function () {
                         var form = layui.form;
+
                         form.render('radio');
                     })
                 }
@@ -200,7 +201,11 @@
         xhr.onload = ()=>{
             if(status.includes(xhr.status)){
                 let res = JSON.parse(xhr.responseText);
-                console.log(xhr.responseText);
+                if (res.code == 1) {
+					location.href = 'user_list.html';
+				}else{
+					alert('编辑失败');
+				}
             }
         }
         xhr.open('post','/userinf',true);

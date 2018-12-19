@@ -25,11 +25,11 @@ Router.route('/')
 
     // 插入
     .put(urlencodedParser,async (req,res)=>{
-        let {sort,shoppingname,price,oldprice,store} = req.query;
+        let {sort,shoppingname,price,oldprice,store,subhead,remark} = req.query;
         store = store*1;
         oldprice = oldprice*1;
         price = price*1;
-        console.log(sort,shoppingname,price,oldprice,store,newtime());
+        console.log(sort,shoppingname,price,oldprice,store,subhead,remark,newtime());
         let data;
         try{
             data = await db.insert('shoppinglist',{
@@ -38,6 +38,8 @@ Router.route('/')
                 price:price,
                 store:store,
                 sort:sort,
+                subhead:subhead,
+                remark:remark,
                 time:newtime()
             });
         }catch(err){

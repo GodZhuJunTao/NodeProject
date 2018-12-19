@@ -178,7 +178,11 @@
         xhr.onload = ()=>{
             if(status.includes(xhr.status)){
                 let res = JSON.parse(xhr.responseText);
-                console.log(xhr.responseText);
+                if (res.code == 1) {
+					location.href = 'user_list.html';
+				}else{
+					alert('添加失败');
+				}
             }
         }
         xhr.open('put',`/userinf?user=${_user}&age=${_age}&password=${_password}&time=${_time}&sex=${_sex}&tel=${_tel}&email=${_email}&sdads=${_sdads}`,true);
