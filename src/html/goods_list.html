@@ -15,12 +15,12 @@
             <div class="layui-logo">后台管理系统</div>
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item"><a href="javascript:;">首页</a></li>
+                <li class="layui-nav-item"><a href="center.html">首页</a></li>
                 <li class="layui-nav-item"><a href="">商品管理</a></li>
                 <li class="layui-nav-item"><a href="">商品列表</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
-                <li class="layui-nav-item">欢迎某某某进入后台管理系统</li>
+                <li class="layui-nav-item user">欢迎某某某进入后台管理系统</li>
                 <li class="layui-nav-item"><a href="javascript:;" id="quit">退了</a></li>
             </ul>
         </div>
@@ -66,6 +66,7 @@
     </div>
 </body>
 <script src="../lib/layui/layui.js"></script>
+<script src="../js/Common.js"></script>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
       <a class="layui-btn layui-btn-sm" href="add_goods.html">添加</a>
@@ -76,11 +77,16 @@
   <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-bg-gray layui-btn-xs goodsState" lay-event="state">下架</a>
   </script>
                 
             
 <script>
     //JavaScript代码区域
+    let user = document.querySelector('.user');
+    let _user = Cookie.get('user');
+    console.log(_user);
+    user.innerHTML = _user;
     layui.use('element', function () {
         var element = layui.element;
     });
@@ -99,11 +105,12 @@
             ,parseData: function(res){ //res 即为原始返回的数据
                 return {
                     "code": res.status, //解析接口状态
-                    // "msg": res.message, //解析提示文本
-                    // "count": res.total, //解析数据长度
+                    "msg": res.message, //解析提示文本
+                    "count": res.total, //解析数据长度
                     "data": res.data.item //解析数据列表
                 };
             }
+            ,page: true //开启分页
             ,cols: [[
             {type: 'checkbox', fixed: 'left'}
             ,{field:'_id', title:'ID', width:120, fixed: 'left', unresize: true, sort: true}
@@ -112,10 +119,23 @@
             ,{field:'oldprice', width:120, title: '价格(原价)', sort: true}
             ,{field:'price', title: '价格(现价)', Width: 80 ,sort: true}
             ,{field:'store', width:80, title: '库存', sort: true}
-            ,{field:'time', width:120, title: '添加时间', sort: true}
-            ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+            ,{field:'time', width:110, title: '添加时间', sort: true}
+            ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:160}
             ]]
-            ,page: true
+             , done: function(res,curr,count){
+                    let stateArr = document.querySelectorAll('.goodsState');
+                    res.data.forEach((item,idx)=>{
+                        if(item.state == 1){
+                            stateArr[idx].classList.remove('layui-bg-gray');
+                            stateArr[idx].classList.add('layui-bg-orange');
+                            stateArr[idx].innerHTML = '上架';
+                        }else{
+                            stateArr[idx].classList.add('layui-bg-gray');
+                            stateArr[idx].classList.remove('layui-bg-orange');
+                            stateArr[idx].innerHTML = '下架';
+                        }
+                    })
+                }
         });
        
         
@@ -144,13 +164,13 @@
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var data = obj.data;
+            let id = obj.data._id;
+            let status = [200,304];
             //console.log(obj)
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     obj.del();
                     layer.close(index);
-                    let id = obj.data._id;
-                    let status = [200,304];
                     let xhr = new XMLHttpRequest();
                     let page = 1;
                     xhr.onload = ()=>{
@@ -163,8 +183,37 @@
                     xhr.send();
                 });
             } else if(obj.event === 'edit'){
-                let id = obj.data._id;
+                // let id = obj.data._id;
                 location.href = 'shopp_editor.html?id='+id;
+            } else if (obj.event === 'state') {
+                let _state;
+                let thisA = obj.tr[0].querySelector('.goodsState');
+                console.log(data.state)
+                if(data.state == 1){
+                    console.log(123)
+                    _state = 0;
+                    thisA.classList.add('layui-bg-gray');
+                    thisA.classList.remove('layui-bg-orange');
+                    thisA.innerHTML = '下架';
+                }else{
+                    console.log(456)
+                    _state = 1;
+                    thisA.classList.remove('layui-bg-gray');
+                    thisA.classList.add('layui-bg-orange');
+                    thisA.innerHTML = '上架';
+                }
+                data.state = _state;
+                console.log(id,_state)
+                let xhr = new XMLHttpRequest();
+                xhr.onload = ()=>{
+                    if(status.includes(xhr.status)){
+                        let res = JSON.parse(xhr.responseText);
+                        console.log(xhr.responseText);
+                    }
+                }
+                xhr.open('post','/goodslist/state',true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send(`id=${id}&state=${_state}`);
             }
         });
     });

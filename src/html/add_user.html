@@ -15,12 +15,12 @@
             <div class="layui-logo">后台管理系统</div>
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item"><a href="javascript:;">首页</a></li>
-                <li class="layui-nav-item"><a href="">商品管理</a></li>
+                <li class="layui-nav-item"><a href="center.html">首页</a></li>
+                <li class="layui-nav-item"><a href="">用户管理</a></li>
                 <li class="layui-nav-item"><a href="">添加用户</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
-                <li class="layui-nav-item">欢迎某某某进入后台管理系统</li>
+                <li class="layui-nav-item user">欢迎某某某进入后台管理系统</li>
                 <li class="layui-nav-item"><a href="javascript:;" id="quit">退了</a></li>
             </ul>
         </div>
@@ -136,10 +136,14 @@
     </div>
 </body>
 <script src="../lib/layui/layui.js"></script>
-
+<script src="../js/Common.js"></script>
 
 <script>
     //JavaScript代码区域
+    let ouser = document.querySelector('.user');
+    let _ouser = Cookie.get('user');
+    console.log(_ouser);
+    ouser.innerHTML = _ouser;
     layui.use('element', function () {
         var element = layui.element;
     });

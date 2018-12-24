@@ -24,22 +24,28 @@ function connect(collectionName){
     })
 }
 //查
-exports.find = (collectionName, query,limit) => {
+exports.find = (collectionName, query,limit,page) => {
     return new Promise(async(resolve,reject)=>{
         let {col,client} = await connect(collectionName);
 
         // 查询所有分类
-        col.find(query).limit(limit).toArray((err,result)=>{
-            let code;
+        let num = (page-1)*limit;
+        let total = 0;
+        //查询总条数
+        col.find().toArray((err,result)=>{
+            total = result.length;
+        })
+        col.find(query).skip(num).limit(limit).toArray((err,result)=>{
             if(result){
-                code = {
+                resolve({
+                    status:0,
+                    message:'ok',
+                    total,
                     data:{
                         item:result
-                    },
-                    status:0
-                }
+                    }
+                })
             }
-            reject(code);
             client.close();
         })
     })
@@ -101,7 +107,7 @@ exports.update = (collectionName, query, newDate) => {
             if(err){
                 reject({
                     code:0,
-                    mag:'插入失败',
+                    msg:'插入失败',
                     data:arr
                 });
             }else{

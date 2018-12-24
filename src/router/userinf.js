@@ -15,7 +15,7 @@ Router.route('/')
         limit = limit*1;
         let data
         try{
-            data = await db.find('user_inf',{},limit);
+            data = await db.find('user_inf',{},limit,page);
         }catch(err){
             data = err;
         }

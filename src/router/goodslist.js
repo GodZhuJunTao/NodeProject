@@ -12,10 +12,11 @@ Router.route('/')
     // 查
     .get(async (req,res)=>{
         let {page,limit} = req.query;
+        console.log(req.query);
         limit = limit*1;
         let data
         try{
-            data = await db.find('shoppinglist',{},limit);
+            data = await db.find('shoppinglist',{},limit,page);
         }catch(err){
             data = err;
         }
@@ -197,6 +198,24 @@ Router.get('/cg_editor',async(req,res)=>{
     let data
     try{
         data = await db.find('goods_category',whereArgs,limit);
+    }catch(err){
+        data = err;
+    }
+
+    res.send(data);
+})
+// 更改上架下架
+Router.post('/state',urlencodedParser,async (req,res)=>{
+    let {id,state} = req.body;
+    var _id = objectId(id);
+    var whereArgs = {
+        _id: _id
+    };
+    // state = state*1;
+    // console.log(whereArgs,req.body);
+    let data;
+    try{
+        data = await db.update('shoppinglist',whereArgs,{$set:{state:state}});
     }catch(err){
         data = err;
     }
