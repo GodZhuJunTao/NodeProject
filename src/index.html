@@ -5,42 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后台登录</title>
     <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/register.css">
-    <title>登录</title>
+    <link rel="stylesheet" href="css/login.css">
 </head>
 
 <body>
-    <div id="register">
-        <div class="register">
-            <img src="assets/微信截图_20181213192717_r2_c2.png" alt="">
-            <div class="box1">
-                <img src="assets/yonghu.png" alt=""><input type="text" placeholder="请输入用户名" id="user">
+    <div id="bigbox">
+        <div id="box">
+            <h1>后台管理系统</h1>
+            <div class="c_box">
+                <img src="assets/yonghu.png" alt="">
+                <input type="text" id="user" placeholder="请输入用户名" class="inp">
             </div>
-
-            <div class="box1">
-                <img src="assets/mima.png" alt=""><input type="password" placeholder="请输入密码" id="password">
+            <div class="c_box">
+                <img src="assets/mima.png" alt="">
+                <input type="password" id="password" placeholder="请输入密码" class="inp">
             </div>
-            <div class="box2">
-                <div class="box_l">
-                    <img src="assets/anquan.png" alt=""><input type="text" class="bk-default kd80 code_val" id="code"
-                        placeholder="图形验证码">
-                </div>
-
+            <div class="c_box" style="width:320px;">
+                <img src="assets/anquan.png" alt="">
+                <input type="text" id="code" placeholder="图形验证码" style="width: 248px;" class="inp">
                 <div id="picCode">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <div class="code">验证码错误</div>
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                </div>
+                <div class="code" style="display:none;color:red;">验证码错误</div>
             </div>
-
-            <div class="box3">
-                <input type="checkbox">记住密码<a href="">忘记密码</a>
+            <div class="c_b">
+                <input type="checkbox">记住密码<a href="javascript:;">忘记密码?</a>
             </div>
-            <div class="box4">
-                <a href="javascript:;">登入</a>
+            <div class="bottom">
+                <a href="javascript:;">登录</a>
             </div>
         </div>
     </div>
@@ -49,57 +46,58 @@
 <script src="js/Common.js"></script>
 <script src="js/register.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded',()=>{
-        let login = document.querySelector('.box4');
+    document.addEventListener('DOMContentLoaded', () => {
+        let login = document.querySelector('.bottom');
         let user = document.querySelector('#user');
         let password = document.querySelector('#password');
         let code = document.querySelector('#code');
         let divCode = document.querySelector('.code');
         let span = document.querySelectorAll('#picCode span');
-        let status = [200,304];
+        let status = [200, 304];
         let isok = false;
-        code.onblur = ()=>{
+        code.onblur = () => {
             isok = false;
             var str = '';
-            for(var i=0;i<4;i++){
-                str+=span[i].innerHTML;
+            for (var i = 0; i < 4; i++) {
+                str += span[i].innerHTML;
             }
             var _code = code.value;
             _code = _code.toLowerCase(_code);
             str = str.toLowerCase(str);
-            if(_code == str){
+            if (_code == str) {
                 divCode.innerHTML = '验证码正确';
                 divCode.style.color = 'green';
                 divCode.style.display = 'block';
                 isok = true;
-            }else{
+            } else {
                 divCode.innerHTML = '验证码错误';
                 divCode.style.color = 'red';
                 divCode.style.display = 'block';
             }
         }
-        login.onclick = ()=>{
-            if(isok){
+        login.onclick = () => {
+            if (isok) {
                 let _user = user.value;
                 let _password = password.value;
                 let _code = code.value;
-                Cookie.set('user',_user);
+                Cookie.set('user', _user);
                 let xhr = new XMLHttpRequest();
-                xhr.open('post','/login',true);
-                xhr.onload = ()=>{
-                    if(status.includes(xhr.status)){
+                xhr.open('post', '/login', true);
+                xhr.onload = () => {
+                    if (status.includes(xhr.status)) {
                         let res = JSON.parse(xhr.responseText);
-                        if(res.code == 1){
+                        if (res.code == 1) {
                             location.href = 'html/center.html';
-                        }else{
+                        } else {
                             alert('用户名或密码错误');
                         }
                     }
                 }
-                xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.send(`username=${_user}&password=${_password}`);
             }
         }
     })
 </script>
+
 </html>
