@@ -1,7 +1,12 @@
 *{box-sizing: border-box;}
+body{
+    background: url(../assets/sd.jpg);
+    background-size: 100%;
+}
 #bigbox{
     margin:50px auto;
     background:#f2f2f2;
+    opacity: 0.8;
     width: 750px;
     height: 570px;
     border-radius: 4%;
@@ -14,7 +19,10 @@
 }
 #box h1{
     font-size: 30px;
-    margin-left:310px;
+    margin-left:300px;
+    background: linear-gradient(to right,#ED4582,#00A280);
+    -webkit-background-clip: text;
+    color: transparent;
 }
 #box .c_box{
     border: 1px solid #e6e6e6;
@@ -39,7 +47,7 @@
     right: 155px;
     width: 110px;
     height: 68px;
-    background: url(../assets/xxx.jpg)no-repeat center center;
+    background: url(../assets/xx.jpg)no-repeat center center;
     text-align: center;
     line-height: 68px;
     cursor: pointer;

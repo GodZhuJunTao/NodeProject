@@ -131,20 +131,24 @@ Router.route('/category')
     })
     // 删
     .delete(urlencodedParser,async(req,res)=>{
-        let {id} = req.query;
-        // console.log(id);
-        var _id = objectId(id);
-        var whereArgs = {
-            _id: _id
-        };
-        let data
-        try{
-            data = await db.delete('goods_category',whereArgs);
-        }catch(err){
-            data = err;
-        }
+        // let {id} = req.query;
+        // // console.log(id);
+        // var _id = objectId(id);
+        // var whereArgs = {
+        //     _id: _id
+        // };
+        // let arr = JSON.parse(req.body._id);
+        // arr = arr.map(item => objectId(item));
+        console.log(req.body);
+        // console.log(arr);
+        // let data
+        // try{
+        //     data = await db.delete('goods_category',whereArgs);
+        // }catch(err){
+        //     data = err;
+        // }
 
-        res.send(data);
+        // res.send(data);
     })
 
     // 增

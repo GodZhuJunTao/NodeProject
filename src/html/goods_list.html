@@ -68,10 +68,14 @@
 <script src="../lib/layui/layui.js"></script>
 <script src="../js/Common.js"></script>
 <script type="text/html" id="toolbarDemo">
-    <div class="layui-btn-container">
-      <a class="layui-btn layui-btn-sm" href="add_goods.html">添加</a>
-      <a class="layui-btn layui-btn-sm">删除</a>
+    <div class="layui-btn-container demoTable">
+      <a class="layui-btn layui-btn-sm" href="add_goods.html"lay-event="add">添加</a>
+      <button class="layui-btn layui-btn-sm" data-type="getCheckData"lay-event="delete">获取选中数据</button>
     </div>
+    <!-- <div class="layui-btn-group demoTable">
+        <button class="layui-btn layui-btn-sm" href="add_goods.html">添加</button>
+        <button class="layui-btn layui-btn-sm" data-type="getCheckLength">获取选中数据</button>
+    </div> -->
   </script>
    
   <script type="text/html" id="barDemo">
@@ -143,6 +147,9 @@
         //     var type = $(this).data('type');
         //     active[type] ? active[type].call(this) : '';
         // });
+        table.on('checkbox(test)', function(obj){
+            console.log(obj)
+        });
         //头工具栏事件
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
@@ -171,8 +178,11 @@
                 layer.confirm('真的删除行么', function(index){
                     obj.del();
                     layer.close(index);
+                    // console.log(index);
+                    // console.log(obj);
                     let xhr = new XMLHttpRequest();
                     let page = 1;
+                    console.log(id);
                     xhr.onload = ()=>{
                         if(status.includes(xhr.status)){
                             let res = JSON.parse(xhr.responseText);
@@ -216,6 +226,58 @@
                 xhr.send(`id=${id}&state=${_state}`);
             }
         });
+        table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id)
+                , data = checkStatus.data; //获取选中的数据
+                console.log(obj);
+
+            switch (obj.event) {
+                case 'add':
+                    layer.msg('添加');//已用a标签链接跳转
+                    break;
+                case 'delete':
+                    if (data.length === 0) {
+                        layer.msg('请选择一行');
+                    } else {
+                        layer.confirm('真的删除行么', function (index) {
+                            console.log(data) //获取选中行的数据
+                            console.log(obj.config.page.curr,obj.config.page.limit);//获取页码和数量
+                            // console.log(obj);
+                            // obj.del();
+                            // console.log(index);
+                            layer.close(index);
+                            let arr = data.map(item => item._id);
+                            let str =JSON.stringify(arr);
+                            console.log(str);
+                            let xhr = new XMLHttpRequest();
+                            xhr.onload = ()=>{
+                                if(status.includes(xhr.status)){
+                                    let res = JSON.parse(xhr.responseText);
+                                    console.log(xhr.responseText);
+                                }
+                            }
+                            xhr.open('delete',`/goodslist?id=${str}`,true);
+                            xhr.send();
+                        });
+                    }
+                    break;
+            };
+        });
+        // var $ = layui.$, active = {
+        //     getCheckData: function(index){ //获取选中数据
+        //         var checkStatus = table.checkStatus('test')
+        //         ,data = checkStatus.data;
+        //         // layer.alert(JSON.stringify(data));
+        //         let arr = JSON.stringify(data);
+        //         console.log(arr);
+        //         obj.del();
+        //         layer.close(index);
+        //     }
+        // };
+        // $('.demoTable .layui-btn').on('click', function(){
+        //     var type = $(this).data('type');
+        //     active[type] ? active[type].call(this) : '';
+        // });
     });
     // let edit = document.querySelector('#toolbarDemo');
     // console.log(edit);
